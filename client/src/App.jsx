@@ -1,15 +1,12 @@
 import { EthProvider } from "./contexts/EthContext";
 import "./App.css";
 import Test from "./components/Test/test";
+import React from "react";
 
 function App() {
   return (
     <EthProvider>
-      <div id="App" >
-        <div className="container">
           <Test/>
-        </div>
-      </div>
     </EthProvider>
   );
 }
