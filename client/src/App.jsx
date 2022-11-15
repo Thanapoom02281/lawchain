@@ -4,11 +4,11 @@ import Test from "./components/Test/test";
 import React from "react";
 
 function App() {
-  return (
-    <EthProvider>
-          <Test/>
-    </EthProvider>
-  );
+    return (
+        <EthProvider>
+            <Test/>
+        </EthProvider>
+    );
 }
 
 export default App;
