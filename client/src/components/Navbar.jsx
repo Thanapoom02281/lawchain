@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import Button from "@mui/material/Button";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 
 const darkTheme = createTheme({
   palette: {
@@ -24,6 +25,7 @@ const darkTheme = createTheme({
 });
 
 export default function Navbar() {
+  const nevigate = useNavigate()
   return (
     <ThemeProvider theme={darkTheme}>
       <Box sx={{ flexGrow: 1 }}>
@@ -35,17 +37,17 @@ export default function Navbar() {
             <Typography variant="h2" color="orange" component="div" sx={{ flexGrow: 1 }}>
               Chain
             </Typography>
-            <Button color="secondary" onClick={() => console.log('ysy')}>
+            <Button color="secondary" onClick={() => nevigate('/searchlaw')}>
+              <h1>
+                ค้นหากฏหมาย
+              </h1>
+            </Button>
+            <Button color="secondary">
               <h1>
                 ค้นหาคำตัดสิน
               </h1>
             </Button>
             {/* <a href="/searchLaw">ค้นหาคำตัดสิน</a> */}
-            <Button color="secondary">
-              <h1>
-                ค้นหากฏหมาย
-              </h1>
-            </Button>
           </Toolbar>
         </AppBar>
       </Box>
