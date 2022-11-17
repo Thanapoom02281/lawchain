@@ -27,7 +27,6 @@ import { create } from 'ipfs-http-client';
 // const ipfs = create('/ip4/127.0.0.1/tcp/5001')
 
 // or using options
-// @ts-ignore
 const ipfs = create({ host: 'localhost', port: '5002', protocol: 'http' });
 
 // or specifying a specific API path

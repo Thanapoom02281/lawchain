@@ -16,8 +16,8 @@ export default function Test(){
     const [text, setText] = useState("");
     const [buff, setBuff] = useState(null);
     const [fileHash, setFileHash] = useState(null);
-    // const [pdfPreview, setPdfPreview] = useState('');
     const [pdf, setPdf] = useState({});
+    const [val2, setVal2] = useState("");
 
 
     async function submit(e){
@@ -90,16 +90,24 @@ export default function Test(){
                     }></Input>
                     <Button variant="contained" type="submit" onClick={ async (event) => {
                         event.preventDefault();
-                        try {
-                            const added = await ipfs.add(pdf);
-                            console.log("add", added);
-                            setFileHash(added.cid.toString());
-                            console.log(fileHash);
-                        } catch (err) {
-                            console.log('err', err.message);
+                        if (pdf !== {}) {
+                            try {
+                                const added = await ipfs.add(pdf);
+                                console.log("add", added);
+                                setFileHash(added.cid.toString());
+                                console.log(fileHash);
+                            } catch (err) {
+                                console.log('err', err.message);
+                            }
                         }
                     }}>Submit</Button>
-        
+                    {val2}
+                    <Button variant="contained" onClick={
+                        async ()=>{
+                            const value = await contracts['JudgementContract'].methods.getCID().call({from:accounts[0]});
+                            setVal2(value);
+                        }
+                    }>See value</Button>
                 </Card>
             </Container>
         </>);
