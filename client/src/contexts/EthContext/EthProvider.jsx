@@ -42,8 +42,8 @@ function EthProvider({ children }) {
                 // eslint-disable-next-line @typescript-eslint/no-var-requires
                 const test = require("../../contracts/Test.json");
                 // eslint-disable-next-line @typescript-eslint/no-var-requires
-                const judgementContract = require("../../contracts/JudgementContract.json");
-                init([simpleStorage,test, judgementContract]);
+                const judgementIndexing = require("../../contracts/JudgementIndexing.json");
+                init([simpleStorage,test, judgementIndexing]);
             } catch (err) {
                 console.error(err);
             }
