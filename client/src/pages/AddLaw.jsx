@@ -1,14 +1,20 @@
 import { Box, Button, CircularProgress, Tab, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
-import Navbar from '../components/Navbar'
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import { useEffect } from 'react';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
+// import { Web3Storage } from 'web3.storage'
+// import { Web3Storage } from 'web3.storage/dist/bundle.esm.min.js';
+import Navbar from '../components/Navbar'
+import ipfs from "../ipfs.js";
+
 
 export default function AddLaw() {
+    // const storage = new Web3Storage({ token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDZkREM1RmYzZjI5MjI0N2RmOTNhMzQ2OTA2ZTEwMDc1MDhmREZDNDIiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2Njg3MDYzNTMxMjcsIm5hbWUiOiJMYXdDaGFpbiJ9.DIFdXPvzpGxEcrm9i9-IoXkhKHAXcE3MDjl6Dbfyx7E' })
+
     const [value, setValue] = useState('1');
 
     const handleChange = (event, newValue) => {
@@ -18,7 +24,7 @@ export default function AddLaw() {
     useEffect(() => {
         setAddCategory('')
         setAddArticle('')
-        setUploadedFile({})
+        setUploadedFile(undefined)
         setIsAddingSuccess(false)
         setIsAddPressed(false)
 
@@ -31,7 +37,7 @@ export default function AddLaw() {
 
     const [addCategory, setAddCategory] = useState('')
     const [addArticle, setAddArticle] = useState('')
-    const [uploadedFile, setUploadedFile] = useState({})
+    const [uploadedFile, setUploadedFile] = useState()
     const [adding, setAdding] = useState(false)
     const [isAddingSuccess, setIsAddingSuccess] = useState(false)
     const [isAddPressed, setIsAddPressed] = useState(false)
@@ -46,16 +52,25 @@ export default function AddLaw() {
         setUploadedFile(e.target.files[0])
     }
 
-    const doAddLaw = () => {
+    const doAddLaw = async () => {
         console.log('add law', addCategory, addArticle)
         setIsAddPressed(true)
         setAdding(true)
-        //TODO: push file to IPFS
-
-        //TODO: Add in Smart Contract
-        const addingResult = true // should be true if adding complete
-
-        setIsAddingSuccess(addingResult)
+        try {
+            
+            //TODO: push file to IPFS
+            // const files = [uploadedFile]
+            // const cid = await storage.put(files)
+            const cid = await ipfs.add(uploadedFile);
+            console.log('cid', cid)
+            
+            //TODO: Add in Smart Contract
+            const addingResult = true // should be true if adding complete
+            
+            setIsAddingSuccess(addingResult)
+        } catch (error) {
+            setIsAddingSuccess(false)
+        }
         setAdding(false)
     }
 
@@ -134,7 +149,7 @@ export default function AddLaw() {
         }
       </div>
       <div style={{ display: "flex", justifyContent: "center", paddingTop: "3%" }}>
-        {isAddPressed ? (isAddingSuccess ? 
+        {(isAddPressed&&!adding) ? ((isAddingSuccess) ? 
             <>
                 <Typography variant="h3" color="#021630" display="inline">
                     เพิ่มกฎหมายสำเร็จ <CheckIcon style={{fontSize: 30, color: 'green'}}/>
@@ -172,7 +187,7 @@ export default function AddLaw() {
         }
       </div>
       <div style={{ display: "flex", justifyContent: "center", paddingTop: "3%" }}>
-        {isSignPressed ? (isSigningSuccess ? 
+        {(isSignPressed&&!signing) ? (isSigningSuccess ? 
             <>
                 <Typography variant="h3" color="#021630" display="inline">
                     เซ็นกฎหมายสำเร็จ <CheckIcon style={{fontSize: 30, color: 'green'}}/>

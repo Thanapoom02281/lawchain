@@ -1,4 +1,4 @@
-import { Button, TextField, Typography } from "@mui/material";
+import { Button, CircularProgress, TextField, Typography } from "@mui/material";
 import React from "react";
 import { useState } from "react";
 import Navbar from "../components/Navbar";
@@ -10,12 +10,18 @@ export default function SearchLaw() {
   const [isFound, setIsFound] = useState(false)
   const [cidURL, setCidURL] = useState('cid')
   const [isSearchOnce, setIsSearchOnce] = useState(false)
+  const [isSearching, setIsSearching] = useState(false)
 
   const doSearch = () => {
     console.log('category', category)
     console.log('article', article)
     setIsSearchOnce(true)
+    setIsSearching(true)
 
+    // const timer = setTimeout(() => {
+    //         console.log('This will run after 1 second!')
+    //       }, 1000);
+    //     return () => clearTimeout(timer);
     //TODO: do search in smart contract
     const resultCid = 'mock'
 
@@ -26,6 +32,7 @@ export default function SearchLaw() {
       setCidURL('')
       setIsFound(false)
     }
+    setIsSearching(false)
   }
 
   return (
@@ -62,7 +69,15 @@ export default function SearchLaw() {
       <div style={{ display: "flex", justifyContent: "center", paddingTop: "3%" }}>
        <Button color="secondary" variant="contained" style={{fontSize: '15px', color: '#021630'}} onClick={doSearch}>ค้นหา</Button>
       </div>
-      {isSearchOnce &&
+      {isSearching && <>
+        <div style={{ display: "flex", justifyContent: "center", paddingTop: "5%" }}>
+        <Typography variant="h3" color="#021630" display="inline">
+            กำลังค้นหากฏหมาย &nbsp;
+        </Typography>
+        <CircularProgress color="secondary" />
+        </div>
+      </>}
+      {(isSearchOnce&&!isSearching) &&
       <>
       <div style={{ display: "flex", justifyContent: "center", paddingTop: "3%" }}>
         <Typography variant="h2" color="#021630" display="inline">
