@@ -31,12 +31,17 @@ export default function Navbar() {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar variant="dense">
-            <Typography variant="h2" color="white" component="div">
+            <Typography variant="h2" color="white" component="div" onClick={() => nevigate('/')}>
               Law
             </Typography>
-            <Typography variant="h2" color="orange" component="div" sx={{ flexGrow: 1 }}>
+            <Typography variant="h2" color="orange" component="div" sx={{ flexGrow: 1 }} onClick={() => nevigate('/')}>
               Chain
             </Typography>
+            <Button color="secondary" onClick={() => nevigate('/')}>
+              <h1>
+                หน้าแรก
+              </h1>
+            </Button>
             <Button color="secondary" onClick={() => nevigate('/searchlaw')}>
               <h1>
                 ค้นหากฏหมาย
