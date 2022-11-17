@@ -50,9 +50,9 @@ export default function AddLaw() {
         console.log('add law', addCategory, addArticle)
         setIsAddPressed(true)
         setAdding(true)
-        //push file to IPFS
+        //TODO: push file to IPFS
 
-        //Add in Smart Contract
+        //TODO: Add in Smart Contract
         const addingResult = true // should be true if adding complete
 
         setIsAddingSuccess(addingResult)
@@ -63,7 +63,7 @@ export default function AddLaw() {
         console.log('sign with', signCategory, signArticle)
         setIsSignPressed(true)
         setSigning(true)
-        // Sign in Smart Contract
+        //TODO: Sign in Smart Contract
         const signingResult = true // should be true if signing complete
 
         // const timer = setTimeout(() => {

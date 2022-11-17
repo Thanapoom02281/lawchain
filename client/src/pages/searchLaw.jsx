@@ -16,7 +16,7 @@ export default function SearchLaw() {
     console.log('article', article)
     setIsSearchOnce(true)
 
-    //do search in smart contract
+    //TODO: do search in smart contract
     const resultCid = 'mock'
 
     if(resultCid){
