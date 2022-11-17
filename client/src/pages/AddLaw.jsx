@@ -7,6 +7,7 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import { useEffect } from 'react';
 import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function AddLaw() {
     const [value, setValue] = useState('1');
@@ -30,7 +31,7 @@ export default function AddLaw() {
         console.log('sign with', signCategory, signArticle)
         setSigning(true)
         // Sign in Smart Contract
-        const signingResult = true
+        const signingResult = true // should be true if signing complete
 
         // const timer = setTimeout(() => {
         //     console.log('This will run after 1 second!')
@@ -106,7 +107,12 @@ export default function AddLaw() {
                 </Typography>
             </>
             ) 
-            : ''
+            :
+            <>
+                <Typography variant="h2" color="#021630" display="inline">
+                    เซ็นกฎหมายไม่สำเร็จ <CloseIcon style={{fontSize: 30, color: 'red'}}/>
+                </Typography>
+            </>
         }
       </div>
             </>}
