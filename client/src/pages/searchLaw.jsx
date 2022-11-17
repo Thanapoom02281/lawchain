@@ -72,7 +72,7 @@ export default function SearchLaw() {
       <div style={{ display: "flex", justifyContent: "center", paddingTop: "3%" }}>
         <Typography variant="h4" color="#021630" display="inline">
             {isFound ? 'Link ไปยังตัวบทกฏหมาย:' : 'ไม่พบข้อมูล'}
-            {isFound ? <Link to={{ pathname: `${setCidURL}` }}></Link> : ''}
+            {isFound ? <Link to={{ pathname: `${cidURL}` }}></Link> : ''}
         </Typography>
       </div>
       </>
