@@ -128,9 +128,9 @@ export default function AddLaw() {
           <div style={{ display: "flex", justifyContent: "center", paddingTop: "1%" }}>
             <TextField id="standard-basic" label="หมวด" variant="standard" color="secondary" onChange={(e) => setAddCategory(e.target.value)} style={{width: '50%'}} inputProps={{style: {fontSize: 15}}} InputLabelProps={{style: {fontSize: 15}}}/>
           </div>
-          <div style={{ display: "flex", justifyContent: "center", paddingTop: "1%" }}>
+          {/* <div style={{ display: "flex", justifyContent: "center", paddingTop: "1%" }}>
             <TextField id="standard-basic" label="มาตรา" variant="standard" color="secondary" onChange={(e) => setAddArticle(e.target.value)} style={{width: '50%'}} inputProps={{style: {fontSize: 15}}} InputLabelProps={{style: {fontSize: 15}}}/>
-          </div>
+          </div> */}
           <div style={{ display: "flex", justifyContent: "center", paddingTop: "5%" }}>
             <input type='file' name='Upload ไฟล์กฏหมาย' onChange={handleUpload}/>
           </div>
@@ -169,9 +169,9 @@ export default function AddLaw() {
                 <div style={{ display: "flex", justifyContent: "center", paddingTop: "1%" }}>
         <TextField id="standard-basic" label="หมวด" variant="standard" color="secondary" onChange={(e) => setSignCategory(e.target.value)} style={{width: '50%'}} inputProps={{style: {fontSize: 15}}} InputLabelProps={{style: {fontSize: 15}}}/>
       </div>
-      <div style={{ display: "flex", justifyContent: "center", paddingTop: "1%" }}>
+      {/* <div style={{ display: "flex", justifyContent: "center", paddingTop: "1%" }}>
         <TextField id="standard-basic" label="มาตรา" variant="standard" color="secondary" onChange={(e) => setSignArticle(e.target.value)} style={{width: '50%'}} inputProps={{style: {fontSize: 15}}} InputLabelProps={{style: {fontSize: 15}}}/>
-      </div>
+      </div> */}
       <div style={{ display: "flex", justifyContent: "center", paddingTop: "5%" }}>
        <Button color="secondary" variant="contained" style={{fontSize: '15px', color: '#021630'}} onClick={doSign} disabled={signing ? true : false}>เซ็น</Button>
       </div>

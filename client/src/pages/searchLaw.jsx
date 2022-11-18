@@ -60,9 +60,9 @@ export default function SearchLaw() {
             ค้นหากฏหมาย
           </Typography>
         </div>
-      <div style={{ display: "flex", justifyContent: "center", paddingTop: "1%" }}>
+      {/* <div style={{ display: "flex", justifyContent: "center", paddingTop: "1%" }}>
         <TextField id="standard-basic" label="หมวด" variant="standard" color="secondary" onChange={(e) => setCategory(e.target.value)} style={{width: '25%'}} inputProps={{style: {fontSize: 15}}} InputLabelProps={{style: {fontSize: 15}}}/>
-      </div>
+      </div> */}
       <div style={{ display: "flex", justifyContent: "center", paddingTop: "1%" }}>
         <TextField id="standard-basic" label="มาตรา" variant="standard" color="secondary" onChange={(e) => setArticle(e.target.value)} style={{width: '25%'}} inputProps={{style: {fontSize: 15}}} InputLabelProps={{style: {fontSize: 15}}}/>
       </div>
