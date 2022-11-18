@@ -6,15 +6,17 @@ import TabPanel from '@mui/lab/TabPanel';
 import { useEffect } from 'react';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
+
 // import { Web3Storage } from 'web3.storage'
 // import { Web3Storage } from 'web3.storage/dist/bundle.esm.min.js';
 import Navbar from '../components/Navbar'
 import ipfs from "../ipfs.js";
-
+import useEth from "../contexts/EthContext/useEth";
 
 export default function AddLaw() {
     // const storage = new Web3Storage({ token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDZkREM1RmYzZjI5MjI0N2RmOTNhMzQ2OTA2ZTEwMDc1MDhmREZDNDIiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2Njg3MDYzNTMxMjcsIm5hbWUiOiJMYXdDaGFpbiJ9.DIFdXPvzpGxEcrm9i9-IoXkhKHAXcE3MDjl6Dbfyx7E' })
 
+    const { state: { contracts, accounts } } = useEth();
     const [value, setValue] = useState('1');
 
     const handleChange = (event, newValue) => {
@@ -32,6 +34,11 @@ export default function AddLaw() {
         setSignArticle('')
         setIsSigningSuccess(false)
         setIsSignPressed(false)
+
+        setSecret('')
+        setPublicKey('')
+        setIsAddingAccountSuccess(false)
+        setIsAddingAccountPressed(false)
         }
     ,[value])
 
@@ -47,6 +54,12 @@ export default function AddLaw() {
     const [signing, setSigning] = useState(false)
     const [isSigningSuccess, setIsSigningSuccess] = useState(false)
     const [isSignPressed, setIsSignPressed] = useState(false)
+
+    const [secret, setSecret] = useState('')
+    const [publicKey, setPublicKey] = useState('')
+    const [addingAccount, setAddingAccount] = useState(false)
+    const [isAddingAccountSuccess, setIsAddingAccountSuccess] = useState(false)
+    const [isAddingAccountPressed, setIsAddingAccountPressed] = useState(false)
 
     const handleUpload = (e) => {
         setUploadedFile(e.target.files[0])
@@ -65,29 +78,44 @@ export default function AddLaw() {
             console.log('cid', cid)
             
             //TODO: Add in Smart Contract
+            await contracts['LawIndexing'].methods.editOrCreateDraft(addArticle,cid.path.toString()).send({from:accounts[0]});
             const addingResult = true // should be true if adding complete
             
             setIsAddingSuccess(addingResult)
         } catch (error) {
+            console.error(error)
             setIsAddingSuccess(false)
         }
         setAdding(false)
     }
 
-    const doSign = () => {
+    const doSign = async() => {
         console.log('sign with', signCategory, signArticle)
         setIsSignPressed(true)
         setSigning(true)
-        //TODO: Sign in Smart Contract
-        const signingResult = true // should be true if signing complete
-
-        // const timer = setTimeout(() => {
-        //     console.log('This will run after 1 second!')
-        //   }, 1000);
-        // return () => clearTimeout(timer);
-
-        setIsSigningSuccess(signingResult)
+        try {
+          //TODO: Sign in Smart Contract
+          await contracts['LawIndexing'].methods.sign(signArticle).send({from:accounts[0]});  
+          setIsSigningSuccess(true)
+        } catch (error) {
+          console.error(error)
+          setIsSigningSuccess(false)
+        }
         setSigning(false)
+    }
+
+    const doAddAccount = async() => {
+      setIsAddingAccountPressed(true)
+      setAddingAccount(true)
+      try {
+        //TODO: Add in Smart Contract
+        await contracts['LawIndexing'].methods.addAuthorizedUser(publicKey,secret).send({from:accounts[0]});
+        setIsAddingAccountSuccess(true)
+      } catch (error) {
+        console.error(error)
+      }
+      console.log('Add account success')
+      setAddingAccount(false)
     }
     
   return (
@@ -120,22 +148,23 @@ export default function AddLaw() {
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <TabList onChange={handleChange} aria-label="ผู้ออกกฏหมายเลือกทำได้ 2 อย่าง">
-            <Tab label="เพิ่มกฎหมายใหม่" value="1" style={{fontSize: '20px'}} disabled={(signing||adding) ? true : false}/>
-            <Tab label="เซ็นกฎหมาย" value="2" style={{fontSize: '20px'}} disabled={(signing||adding) ? true : false}/>
+            <Tab label="เพิ่มกฎหมายใหม่" value="1" style={{fontSize: '20px'}} disabled={(signing||adding||addingAccount) ? true : false}/>
+            <Tab label="เซ็นกฎหมาย" value="2" style={{fontSize: '20px'}} disabled={(signing||adding||addingAccount) ? true : false}/>
+            <Tab label="เพิ่มบัญชี" value="3" style={{fontSize: '20px'}} disabled={(signing||adding||addingAccount) ? true : false}/>
           </TabList>
         </Box>
         <TabPanel value="1"> 
-          <div style={{ display: "flex", justifyContent: "center", paddingTop: "1%" }}>
-            <TextField id="standard-basic" label="หมวด" variant="standard" color="secondary" onChange={(e) => setAddCategory(e.target.value)} style={{width: '50%'}} inputProps={{style: {fontSize: 15}}} InputLabelProps={{style: {fontSize: 15}}}/>
-          </div>
           {/* <div style={{ display: "flex", justifyContent: "center", paddingTop: "1%" }}>
-            <TextField id="standard-basic" label="มาตรา" variant="standard" color="secondary" onChange={(e) => setAddArticle(e.target.value)} style={{width: '50%'}} inputProps={{style: {fontSize: 15}}} InputLabelProps={{style: {fontSize: 15}}}/>
+            <TextField id="standard-basic" label="หมวด" variant="standard" color="secondary" onChange={(e) => setAddCategory(e.target.value)} style={{width: '50%'}} inputProps={{style: {fontSize: 15}}} InputLabelProps={{style: {fontSize: 15}}}/>
           </div> */}
+          <div style={{ display: "flex", justifyContent: "center", paddingTop: "1%" }}>
+            <TextField id="standard-basic" label="มาตรา" variant="standard" color="secondary" onChange={(e) => setAddArticle(e.target.value)} style={{width: '50%'}} inputProps={{style: {fontSize: 15}}} InputLabelProps={{style: {fontSize: 15}}}/>
+          </div>
           <div style={{ display: "flex", justifyContent: "center", paddingTop: "5%" }}>
             <input type='file' name='Upload ไฟล์กฏหมาย' onChange={handleUpload}/>
           </div>
           <div style={{ display: "flex", justifyContent: "center", paddingTop: "5%" }}>
-           <Button color="secondary" variant="contained" style={{fontSize: '15px', color: '#021630'}} onClick={doAddLaw} disabled={adding ? true : false}>เพิ่มกฏหมาย</Button>
+           <Button color="secondary" variant="contained" style={{fontSize: '15px', color: '#021630'}} onClick={doAddLaw} disabled={(adding || addArticle === '' || uploadedFile === undefined) ? true : false}>เพิ่มกฏหมาย</Button>
           </div>
           <div style={{ display: "flex", justifyContent: "center", paddingTop: "3%" }}>
         {adding ? (<>
@@ -166,14 +195,14 @@ export default function AddLaw() {
       </div>
         </TabPanel>
         <TabPanel value="2">
-                <div style={{ display: "flex", justifyContent: "center", paddingTop: "1%" }}>
-        <TextField id="standard-basic" label="หมวด" variant="standard" color="secondary" onChange={(e) => setSignCategory(e.target.value)} style={{width: '50%'}} inputProps={{style: {fontSize: 15}}} InputLabelProps={{style: {fontSize: 15}}}/>
-      </div>
       {/* <div style={{ display: "flex", justifyContent: "center", paddingTop: "1%" }}>
-        <TextField id="standard-basic" label="มาตรา" variant="standard" color="secondary" onChange={(e) => setSignArticle(e.target.value)} style={{width: '50%'}} inputProps={{style: {fontSize: 15}}} InputLabelProps={{style: {fontSize: 15}}}/>
+        <TextField id="standard-basic" label="หมวด" variant="standard" color="secondary" onChange={(e) => setSignCategory(e.target.value)} style={{width: '50%'}} inputProps={{style: {fontSize: 15}}} InputLabelProps={{style: {fontSize: 15}}}/>
       </div> */}
+      <div style={{ display: "flex", justifyContent: "center", paddingTop: "1%" }}>
+        <TextField id="standard-basic" label="มาตรา" variant="standard" color="secondary" onChange={(e) => setSignArticle(e.target.value)} style={{width: '50%'}} inputProps={{style: {fontSize: 15}}} InputLabelProps={{style: {fontSize: 15}}}/>
+      </div>
       <div style={{ display: "flex", justifyContent: "center", paddingTop: "5%" }}>
-       <Button color="secondary" variant="contained" style={{fontSize: '15px', color: '#021630'}} onClick={doSign} disabled={signing ? true : false}>เซ็น</Button>
+       <Button color="secondary" variant="contained" style={{fontSize: '15px', color: '#021630'}} onClick={doSign} disabled={(signing || signArticle === '') ? true : false}>เซ็น</Button>
       </div>
       <div style={{ display: "flex", justifyContent: "center", paddingTop: "3%" }}>
         {signing ? (<>
@@ -197,6 +226,44 @@ export default function AddLaw() {
             <>
                 <Typography variant="h3" color="#021630" display="inline">
                     เซ็นกฎหมายไม่สำเร็จ <CloseIcon style={{fontSize: 30, color: 'red'}}/>
+                </Typography>
+            </>
+            ) : ''
+        }
+      </div>
+        </TabPanel>
+        <TabPanel value="3"> 
+        <div style={{ display: "flex", justifyContent: "center", paddingTop: "1%" }}>
+          <TextField id="standard-basic" type="Password" label="Secret" variant="standard" color="secondary" onChange={(e) => setSecret(e.target.value)} style={{width: '50%'}} inputProps={{style: {fontSize: 15}}} InputLabelProps={{style: {fontSize: 15}}}/>
+        </div>
+        <div style={{ display: "flex", justifyContent: "center", paddingTop: "1%" }}>
+          <TextField id="standard-basic" label="Public Key" variant="standard" color="secondary" onChange={(e) => setPublicKey(e.target.value)} style={{width: '50%'}} inputProps={{style: {fontSize: 15}}} InputLabelProps={{style: {fontSize: 15}}}/>
+       </div>
+       <div style={{ display: "flex", justifyContent: "center", paddingTop: "5%" }}>
+         <Button color="secondary" variant="contained" style={{fontSize: '15px', color: '#021630'}} onClick={doAddAccount} disabled={(addingAccount || secret === '' || publicKey === '') ? true : false}>เพิ่มบัญชี</Button>
+        </div>
+        <div style={{ display: "flex", justifyContent: "center", paddingTop: "3%" }}>
+        {addingAccount ? (<>
+                <Typography variant="h3" color="#021630" display="inline">
+                    กำลังเพิ่มบัญชี &nbsp;
+                </Typography>
+                <CircularProgress color="secondary" />
+                </>
+            ) 
+            : ''
+        }
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", paddingTop: "3%" }}>
+        {(isAddingAccountPressed&&!addingAccount) ? (isAddingAccountSuccess ? 
+            <>
+                <Typography variant="h3" color="#021630" display="inline">
+                    เพิ่มบัญชีสำเร็จ <CheckIcon style={{fontSize: 30, color: 'green'}}/>
+                </Typography>
+            </>
+            :
+            <>
+                <Typography variant="h3" color="#021630" display="inline">
+                    เพิ่มบัญชีไม่สำเร็จ <CloseIcon style={{fontSize: 30, color: 'red'}}/>
                 </Typography>
             </>
             ) : ''

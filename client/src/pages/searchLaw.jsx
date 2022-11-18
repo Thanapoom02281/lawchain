@@ -1,18 +1,22 @@
 import { Button, CircularProgress, TextField, Typography } from "@mui/material";
 import React from "react";
 import { useState } from "react";
-import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
+import Navbar from "../components/Navbar";
+import useEth from "../contexts/EthContext/useEth";
+import LinkIcon from '@mui/icons-material/Link';
 
 export default function SearchLaw() {
+  const { state: { contracts, accounts } } = useEth();
+
   const [category, setCategory] = useState('')
   const [article, setArticle] = useState('')
   const [isFound, setIsFound] = useState(false)
-  const [cidURL, setCidURL] = useState('cid')
+  const [cid, setCid] = useState('cid')
   const [isSearchOnce, setIsSearchOnce] = useState(false)
   const [isSearching, setIsSearching] = useState(false)
 
-  const doSearch = () => {
+  const doSearch = async() => {
     console.log('category', category)
     console.log('article', article)
     setIsSearchOnce(true)
@@ -22,15 +26,16 @@ export default function SearchLaw() {
     //         console.log('This will run after 1 second!')
     //       }, 1000);
     //     return () => clearTimeout(timer);
-    //TODO: do search in smart contract
-    const resultCid = 'mock'
-
-    if(resultCid){
-      setCidURL(resultCid)
+    try {
+      //TODO: do search in smart contract
+      const resultCid = await contracts['LawIndexing'].methods.getLatestLaw(article).call({from:accounts[0]})
+      console.log(resultCid)
+      setCid(resultCid)
       setIsFound(true)
-    }else{
-      setCidURL('')
+    } catch (error) {
+      setCid('')
       setIsFound(false)
+      console.error(error)
     }
     setIsSearching(false)
   }
@@ -67,7 +72,7 @@ export default function SearchLaw() {
         <TextField id="standard-basic" label="มาตรา" variant="standard" color="secondary" onChange={(e) => setArticle(e.target.value)} style={{width: '25%'}} inputProps={{style: {fontSize: 15}}} InputLabelProps={{style: {fontSize: 15}}}/>
       </div>
       <div style={{ display: "flex", justifyContent: "center", paddingTop: "3%" }}>
-       <Button color="secondary" variant="contained" style={{fontSize: '15px', color: '#021630'}} onClick={doSearch}>ค้นหา</Button>
+       <Button color="secondary" variant="contained" style={{fontSize: '15px', color: '#021630'}} onClick={doSearch} disabled={article === '' ? true : false}>ค้นหา</Button>
       </div>
       {isSearching && <>
         <div style={{ display: "flex", justifyContent: "center", paddingTop: "5%" }}>
@@ -86,9 +91,12 @@ export default function SearchLaw() {
       </div>
       <div style={{ display: "flex", justifyContent: "center", paddingTop: "3%" }}>
         <Typography variant="h4" color="#021630" display="inline">
-            {isFound ? 'Link ไปยังตัวบทกฏหมาย:' : 'ไม่พบข้อมูล'}
-            {isFound ? <Link to={{ pathname: `${cidURL}` }}></Link> : ''}
+            {isFound ? 'พบกฏหมาย กดปุ่มเพื่อไปยังตัวบทกฏหมาย:' : 'ไม่พบข้อมูล'}
+            {/* {isFound ? <Link to={`https://ipfs.io/ipfs/${cidURL}`}>{cidURL}</Link> : ''} */}
         </Typography>
+      </div>
+      <div style={{ display: "flex", justifyContent: "center"}}>
+        {isFound ? <Button sx={{m:2}} href={`https://ipfs.io/ipfs/${cid}`} color="secondary" variant="contained"><LinkIcon sx={{m:0.5}}/>Click me</Button> : ''}
       </div>
       </>
       }

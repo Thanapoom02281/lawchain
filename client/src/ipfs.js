@@ -28,6 +28,7 @@ import { create } from 'ipfs-http-client';
 
 // or using options
 const ipfs = create({ host: 'localhost', port: '5001', protocol: 'http' });
+// const ipfs = create()
 
 // or specifying a specific API path
 // const ipfs = create({ host: '1.1.1.1', port: '80', apiPath: '/ipfs/api/v0' })

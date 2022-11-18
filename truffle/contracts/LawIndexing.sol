@@ -1,17 +1,17 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.4.22 <0.9.0;
 contract Law{
-    uint cid;
-    constructor (uint _cid) public{
+    string cid;
+    constructor (string memory _cid) public{
         cid = _cid;
     }
-    function getCid() public view returns(uint){
+    function getCid() public view returns(string memory){
         return cid;
     }
 }
 contract LawIndexing{
     struct Draft{
-        uint cid;
+        string cid;
         address[] signers;
         bool allocated;
     }
@@ -52,7 +52,7 @@ contract LawIndexing{
         return false;
     }
 
-    function editOrCreateDraft(string memory article,uint cid) public payable{
+    function editOrCreateDraft(string memory article,string memory cid) public payable{
         require(auth(msg.sender),"Unauthorized");
         draftMapping[article].signers = new address[](0);
         draftMapping[article].cid = cid;
@@ -79,16 +79,16 @@ contract LawIndexing{
             }
             draftMapping[article].allocated = false;
             draftMapping[article].signers = new address[](0);
-            draftMapping[article].cid = 0;
+            draftMapping[article].cid = "";
         }
     }
 
-    function getLatestLaw(string memory article) public view returns (uint){
+    function getLatestLaw(string memory article) public view returns (string memory){
         return lawMapping[article].laws[lawMapping[article].laws.length-1].getCid();
     }
 
-    function getEveryLawVersions(string memory article) public view returns (uint[] memory){
-        uint[] memory everyLawVersions = new uint[](lawMapping[article].laws.length);
+    function getEveryLawVersions(string memory article) public view returns (string[] memory){
+        string[] memory everyLawVersions = new string[](lawMapping[article].laws.length);
         for(uint i = 0; i< lawMapping[article].laws.length ; i++){
             everyLawVersions[i] = (lawMapping[article].laws[i].getCid());
         }
