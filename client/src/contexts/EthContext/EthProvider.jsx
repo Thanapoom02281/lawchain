@@ -39,7 +39,9 @@ function EthProvider({ children }) {
       try {
         const simpleStorage = require("../../contracts/SimpleStorage.json");
         const test = require("../../contracts/Test.json");
-        init([simpleStorage,test]);
+        const lawIndexing = require("../../contracts/LawIndexing.json");
+        const law = require("../../contracts/Law.json")
+        init([simpleStorage,test,lawIndexing,law]);
       } catch (err) {
         console.error(err);
       }
