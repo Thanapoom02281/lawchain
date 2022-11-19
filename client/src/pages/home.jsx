@@ -40,7 +40,8 @@ export default function Home() {
                         <Button
                             color="secondary"
                             variant="contained"
-                            style={{ fontSize: '20px', color: '#021630' }}>
+                            style={{ fontSize: '20px', color: '#021630' }}
+                            onClick={() => navigate('/search-judgement')}>
                             ค้นหาคำตัดสิน
                         </Button>
                     </div>
@@ -58,7 +59,10 @@ export default function Home() {
                         onClick={() => navigate('/addlaw')}>
                         สำหรับผู้ออกกฏหมาย
                     </Button>
-                    <Button color="primary" style={{ fontSize: '15px', color: '#021630' }}>
+                    <Button
+                        color="primary"
+                        style={{ fontSize: '15px', color: '#021630' }}
+                        onClick={() => navigate('/judgement')}>
                         สำหรับผู้พิพากษา
                     </Button>
                 </div>

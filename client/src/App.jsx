@@ -7,6 +7,8 @@ import Test from './components/Test/test';
 import Home from './pages/Home';
 import SearchLaw from './pages/SearchLaw';
 import AddLaw from './pages/AddLaw';
+import Judgement from './pages/Judgement';
+import SearchJudgement from './pages/SearchJudgement';
 
 const darkTheme = createTheme({
     palette: {
@@ -28,7 +30,8 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/searchlaw" element={<SearchLaw />} />
                     <Route path="/addlaw" element={<AddLaw />} />
-                    <Route path='/judgement' element={<Test />} />
+                    <Route path="/judgement" element={<Judgement />} />
+                    <Route path="/search-judgement" element={<SearchJudgement />} />
                 </Routes>
                 {/* <Test/> */}
                 {/* <Home /> */}
