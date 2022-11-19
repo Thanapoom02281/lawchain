@@ -9,6 +9,8 @@ $ docker-compose up
 ```
 The client should run on http://localhost:3000
 
+The smart contracts are already deployed into the goerli. Therefore, just running the client is ready to go!
+
 ## Elements in this repository
 
 ### The client folder
