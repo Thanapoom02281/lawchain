@@ -2673,15 +2673,15 @@
     "absolutePath": "project:/contracts/Test.sol",
     "exportedSymbols": {
       "Test": [
-        670
+        722
       ]
     },
-    "id": 671,
+    "id": 723,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 657,
+        "id": 709,
         "literals": [
           "solidity",
           ">=",
@@ -2701,9 +2701,9 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 670,
+        "id": 722,
         "linearizedBaseContracts": [
-          670
+          722
         ],
         "name": "Test",
         "nameLocation": "76:4:3",
@@ -2712,12 +2712,12 @@
           {
             "constant": false,
             "functionSelector": "77001dd6",
-            "id": 659,
+            "id": 711,
             "mutability": "mutable",
             "name": "testVal",
             "nameLocation": "102:7:3",
             "nodeType": "VariableDeclaration",
-            "scope": 670,
+            "scope": 722,
             "src": "88:21:3",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2726,7 +2726,7 @@
               "typeString": "string"
             },
             "typeName": {
-              "id": 658,
+              "id": 710,
               "name": "string",
               "nodeType": "ElementaryTypeName",
               "src": "88:6:3",
@@ -2739,23 +2739,23 @@
           },
           {
             "body": {
-              "id": 668,
+              "id": 720,
               "nodeType": "Block",
               "src": "164:35:3",
               "statements": [
                 {
                   "expression": {
-                    "id": 666,
+                    "id": 718,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 664,
+                      "id": 716,
                       "name": "testVal",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 659,
+                      "referencedDeclaration": 711,
                       "src": "175:7:3",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_storage",
@@ -2765,11 +2765,11 @@
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
-                      "id": 665,
+                      "id": 717,
                       "name": "newVal",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 661,
+                      "referencedDeclaration": 713,
                       "src": "185:6:3",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_memory_ptr",
@@ -2782,14 +2782,14 @@
                       "typeString": "string storage ref"
                     }
                   },
-                  "id": 667,
+                  "id": 719,
                   "nodeType": "ExpressionStatement",
                   "src": "175:16:3"
                 }
               ]
             },
             "functionSelector": "93a09352",
-            "id": 669,
+            "id": 721,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -2797,17 +2797,17 @@
             "nameLocation": "127:8:3",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 662,
+              "id": 714,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 661,
+                  "id": 713,
                   "mutability": "mutable",
                   "name": "newVal",
                   "nameLocation": "150:6:3",
                   "nodeType": "VariableDeclaration",
-                  "scope": 669,
+                  "scope": 721,
                   "src": "136:20:3",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -2816,7 +2816,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 660,
+                    "id": 712,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "136:6:3",
@@ -2831,19 +2831,19 @@
               "src": "135:22:3"
             },
             "returnParameters": {
-              "id": 663,
+              "id": 715,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "164:0:3"
             },
-            "scope": 670,
+            "scope": 722,
             "src": "118:81:3",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 671,
+        "scope": 723,
         "src": "67:135:3",
         "usedErrors": []
       }
@@ -2864,12 +2864,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x0560Fc369EC1D7D0ab4CF372911da8c736f84120",
-      "transactionHash": "0xe09e915a9a6322dbd80f19e3b22a5a5e9ecb9a39c2740bf8aa739fe0b04ee14f"
+      "address": "0xEf6eB3A46B5F3Fcc0b97AA6342Ce8d95743d2A26",
+      "transactionHash": "0xda8b346c6b57d548af1ce71e4489b687b366f3a4f44d0558569f381529e4a9ee"
     }
   },
   "schemaVersion": "3.4.10",
-  "updatedAt": "2022-11-19T08:07:36.396Z",
+  "updatedAt": "2022-11-19T10:48:54.232Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
