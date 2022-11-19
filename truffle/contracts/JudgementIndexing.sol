@@ -2,28 +2,6 @@
 pragma solidity >=0.4.22 <0.9.0;
 pragma experimental ABIEncoderV2;
 
-
-contract Ownable {
-    address private owner;
-
-    // modifier to check if caller is owner
-    modifier onlyOwner() {
-        require(msg.sender == owner, "unauthorized");
-        _;
-    }
-    constructor() public {
-        owner = msg.sender;
-    }
-
-    function changeOwner(address newOwner) public onlyOwner {
-        owner = newOwner;
-    }
-
-    function getOwner() public view returns (address) {
-        return owner;
-    }
-}
-
 contract Judgement {
     string cid;
     string[] sectionNumbers;
@@ -45,10 +23,32 @@ contract Judgement {
 
 }
 
-contract JudgementIndexing is Ownable{
-    mapping(string => address) public judgementIndex; 
+contract JudgementIndexing {
+    mapping(string => address) public judgementIndex;
+    address[] authorizedUsers = new address[](0);
+    string private _secret = "SECRETS";
 
-    function addNewJudgement(string memory redCaseNum, string[] memory _section, string memory _cid) public onlyOwner {
+    function addAuthorizedUser(address user, string memory secret) public payable {
+        require(keccak256(abi.encode(secret)) == keccak256(abi.encode(_secret)),"Invalid secret");
+        require(auth(user) == false, "This user is already added");
+        authorizedUsers.push(user);
+    }
+
+    function viewAuthorizedUsers() public view returns (address[] memory) {
+        return authorizedUsers;
+    }
+
+    function auth(address user) private view returns (bool){
+        for (uint i = 0; i < authorizedUsers.length; i++) {
+            if (authorizedUsers[i] == user) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function addNewJudgement(string memory redCaseNum, string[] memory _section, string memory _cid) public {
+        require(auth(msg.sender),"Unauthorized");
         address _judgementAddress = address(new Judgement(_cid, _section));
         judgementIndex[redCaseNum] = _judgementAddress;
     }
