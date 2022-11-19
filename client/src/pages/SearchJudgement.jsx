@@ -125,7 +125,7 @@ export default function SearchJudgement() {
                             {isSearching && <>
                     <div style={{ display: "flex", justifyContent: "center", paddingTop: "5%" }}>
                         <Typography variant="h3" color="#021630" display="inline">
-            กำลังค้นหากฏหมาย &nbsp;
+            กำลังค้นหาคำตัดสิน &nbsp;
                         </Typography>
                         <CircularProgress color="secondary" />
                     </div>
