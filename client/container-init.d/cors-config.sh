@@ -1,2 +1,4 @@
-#!/bin/sh
-ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin "[\"*\"]"
+!/bin/sh
+# set -ex
+ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin '["*"]'
+# ls

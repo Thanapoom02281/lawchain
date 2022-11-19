@@ -1,4 +1,4 @@
-version: '1'
+# version: "1.0"
 services:
   ipfs:
     image: ipfs/kubo:latest
@@ -7,7 +7,7 @@ services:
     volumes:
       - /export
       - /data/ipfs
-      - ./container-init.d/cors-config.sh:/container-init.d/cors-config.sh
+      - ./container-init.d:/container-init.d
     expose:
       - 4001/udp
       - 40001/tcp
