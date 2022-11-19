@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useEth from "../contexts/EthContext/useEth";
-import { Button, Box, Card, Input, TextField, Typography, Grid, CardContent } from "@mui/material";
+import { Button, Box, Card, Input, TextField, Typography, Grid, CardContent, CircularProgress } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
@@ -18,6 +18,7 @@ export default function SearchJudgement() {
     const [redCaseFind, setRedCaseFind] = useState("");
     const [jDesFind, setJDesFind] = useState("");
     const [jLinkFind, setJLinkFind] = useState("");
+    const [isSearching, setIsSearching] = useState(false);
 
     return(
         <>
@@ -64,6 +65,7 @@ export default function SearchJudgement() {
                                             variant="contained"
                                             onClick={ async () => {
                                                 try {
+                                                    setIsSearching(true);
                                                     const jListSec = await contracts['JudgementIndexing'].methods.getSectionNumbersByRedCase(redCaseFind.toString()).call({from:accounts[0]});
                                                     console.log(jListSec);
                                                     const jCid = await contracts['JudgementIndexing'].methods.getCIDByRedCase(redCaseFind.toString()).call({from:accounts[0]});
@@ -76,7 +78,9 @@ export default function SearchJudgement() {
                                                     setListJSectionNumberFind([]);
                                                     setJLinkFind("");
                                                 }
+                                                setIsSearching(false);
                                             }}
+                                            disabled={redCaseFind == '' ? true : false}
                                         ><SearchIcon></SearchIcon></Button>
                                     </Grid>
                                 </Grid>  
@@ -118,6 +122,14 @@ export default function SearchJudgement() {
                                     </Grid>
                                 ))}
                             </Box>}
+                            {isSearching && <>
+                    <div style={{ display: "flex", justifyContent: "center", paddingTop: "5%" }}>
+                        <Typography variant="h3" color="#021630" display="inline">
+            กำลังค้นหาคำตัดสิน &nbsp;
+                        </Typography>
+                        <CircularProgress color="secondary" />
+                    </div>
+                </>}
                         </Container>
                     </CardContent>
                 </Card>
