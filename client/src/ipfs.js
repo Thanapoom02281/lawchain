@@ -19,7 +19,6 @@
 
 
 import { create } from 'ipfs-http-client';
-
 // connect to ipfs daemon API server
 // const ipfs = create('http://localhost:5001') // (the default in Node.js)
 
@@ -27,7 +26,8 @@ import { create } from 'ipfs-http-client';
 // const ipfs = create('/ip4/127.0.0.1/tcp/5001')
 
 // or using options
-const ipfs = create({ host: 'localhost', port: '5001', protocol: 'http' });
+const host = process.env.HOST || 'localhost';
+const ipfs = create({ host: host , port: '5001', protocol: 'http' });
 // const ipfs = create()
 
 // or specifying a specific API path

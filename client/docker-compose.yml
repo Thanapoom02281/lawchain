@@ -1,0 +1,39 @@
+version: '1'
+services:
+  ipfs:
+    image: ipfs/kubo:latest
+    container_name: ipfs
+    restart: unless-stopped
+    volumes:
+      - /export
+      - /data/ipfs
+      - ./container-init.d/cors-config.sh:/container-init.d/cors-config.sh
+    expose:
+      - 4001/udp
+      - 40001/tcp
+      - 5001
+      - 8080
+    ports:
+      - 127.0.0.1:5001:5001
+    networks:
+      - lawchain
+    environment:
+      CLUSTER_RESTAPI_CORSALLOWEDMETHODS: GET,POST,PUT
+      CLUSTER_RESTAPI_CORSALLOWEDORIGINS: "*"
+      
+  web:
+    container_name: web
+    build: .
+    ports:
+      - 3000:3000
+    depends_on:
+      - ipfs
+    networks:
+      - lawchain
+    environment:
+      HOST: "host.docker.internal"
+
+networks:
+  lawchain:
+    driver: bridge
+    
