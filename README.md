@@ -2,8 +2,9 @@
 A law application of blockchain which laws and judgements are store into LawChain by legislator and the court who finalize judgements.
 
 ## Run LawChain
-To run the LawChain, at the root of the project, run
+To run the LawChain, cd into the client folder and run docker-compose up
 ```
+$ cd client
 $ docker-compose up
 ```
 The client should run on http://localhost:3000
