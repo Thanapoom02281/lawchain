@@ -96,7 +96,7 @@ export default function SearchLaw() {
               </Typography>
           </div>
           <div style={{ display: "flex", justifyContent: "center"}}>
-              {isFound ? <Button sx={{m:2}} href={`https://ipfs.io/ipfs/${cid}`} color="secondary" variant="contained"><LinkIcon sx={{m:0.5}}/>Click me</Button> : ''}
+              {isFound ? <Button sx={{m:2}} href={`https://ipfs.io/ipfs/${cid}`} color="secondary" variant="contained" target="_blank"><LinkIcon sx={{m:0.5}}/>Click me</Button> : ''}
           </div>
       </>
                 }
