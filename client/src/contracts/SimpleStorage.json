@@ -791,7 +791,7 @@
             "name": "value",
             "nameLocation": "101:5:2",
             "nodeType": "VariableDeclaration",
-            "scope": 655,
+            "scope": 707,
             "src": "93:13:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -823,8 +823,8 @@
                     "name": "value",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 636,
-                    "src": "177:5:2",
+                    "referencedDeclaration": 688,
+                    "src": "170:5:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -862,8 +862,8 @@
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 644,
-                  "src": "154:7:2",
+                  "scope": 696,
+                  "src": "148:7:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -885,8 +885,8 @@
               ],
               "src": "147:9:2"
             },
-            "scope": 655,
-            "src": "117:71:2",
+            "scope": 707,
+            "src": "111:69:2",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "public"
@@ -909,8 +909,8 @@
                       "name": "value",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 636,
-                      "src": "241:5:2",
+                      "referencedDeclaration": 688,
+                      "src": "230:5:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
@@ -923,8 +923,8 @@
                       "name": "newValue",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 646,
-                      "src": "249:8:2",
+                      "referencedDeclaration": 698,
+                      "src": "238:8:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
@@ -961,8 +961,8 @@
                   "name": "newValue",
                   "nameLocation": "207:8:2",
                   "nodeType": "VariableDeclaration",
-                  "scope": 654,
-                  "src": "209:16:2",
+                  "scope": 706,
+                  "src": "199:16:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -990,15 +990,15 @@
               "parameters": [],
               "src": "224:0:2"
             },
-            "scope": 655,
-            "src": "194:69:2",
+            "scope": 707,
+            "src": "184:67:2",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 656,
-        "src": "69:197:2",
+        "scope": 708,
+        "src": "66:187:2",
         "usedErrors": []
       }
     ],
@@ -1009,21 +1009,15 @@
     "version": "0.8.14+commit.80d49f37.Emscripten.clang"
   },
   "networks": {
-    "5": {
-      "events": {},
-      "links": {},
-      "address": "0xc8adC00F0d59bC07b2D0B35c33a4bbA803B89A87",
-      "transactionHash": "0x5fd7541bc32e66396e5a164669b019af885e9dc3b75ada9f16c83a9c03df2c73"
-    },
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x88a49a21Af08e0Ca3Bc231ec6aF677019270c78D",
-      "transactionHash": "0xf1f681771b2fb36f60c916eab515bf609612b9be647484b40549c46023eb0591"
+      "address": "0x566CD27D2B74bb301087428c62b057089faB2eF5",
+      "transactionHash": "0x780d421f522f7b480c39604faed7817bebbedd2fdb56a358f478811dd4c4716b"
     }
   },
   "schemaVersion": "3.4.10",
-  "updatedAt": "2022-11-19T08:06:13.046Z",
+  "updatedAt": "2022-11-19T11:30:44.127Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
