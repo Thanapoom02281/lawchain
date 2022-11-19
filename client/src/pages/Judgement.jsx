@@ -149,7 +149,7 @@ export default function Judgement() {
                             setIsAdding(false)
                         }
                     }}
-                    disabled={(jPdf === undefined || redCaseName === '' || listJSectionNumber === [])? true : false }
+                    disabled={(jPdf === undefined || redCaseName === '' || listJSectionNumber.length === 0)? true : false }
                     >Submit</Button>
                     {isAdding && <>
                     <div style={{ display: "flex", justifyContent: "center", paddingTop: "3%" }}>
