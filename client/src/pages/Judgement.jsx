@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useEth from "../contexts/EthContext/useEth";
-import { Button, Box, Card, Input, TextField, Typography, Grid, CardContent } from "@mui/material";
+import { Button, Box, Card, Input, TextField, Typography, Grid, CardContent, CircularProgress } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
@@ -14,7 +14,7 @@ import React from "react";
 
 export default function Judgement() {
     const { state: { contracts, accounts } } = useEth();
-    const [jPdf, setJpdf] = useState({});
+    const [jPdf, setJpdf] = useState();
     const [listJSectionNumber, setListJSectionNumber] = useState([]);
     const [listJSectionNumberFind, setListJSectionNumberFind] = useState([]);
     const [jSectionNumber, setJSectionNumber] = useState("");
@@ -22,6 +22,7 @@ export default function Judgement() {
     const [redCaseFind, setRedCaseFind] = useState("");
     const [jDesFind, setJDesFind] = useState("");
     const [jLinkFind, setJLinkFind] = useState("");
+    const [isAdding, setIsAdding] = useState(false);
 
     return(
         <>
@@ -135,17 +136,29 @@ export default function Judgement() {
                         const cleanRedCaseName = redCaseName.trim();
                         if (cleanRedCaseName !== "") {
                             try {
+                                setIsAdding(true)
                                 const added = await ipfs.add(jPdf);
                                 console.log("add", added);
                                 console.log(listJSectionNumber);
                                 const listJSectionNumberString = listJSectionNumber.map((sec) => sec.toString());
                                 await contracts['JudgementIndexing'].methods.addNewJudgement(cleanRedCaseName, listJSectionNumberString, added.path.toString()).send({from:accounts[0]});
                             } catch (err) {
-                                alert("Unsuccess");
+                                alert("เพิ่มกฏหมายไม่สำเร็จ");
                                 console.log('err', err.message);
                             }
+                            setIsAdding(false)
                         }
-                    }}>Submit</Button>
+                    }}
+                    disabled={(jPdf === undefined || redCaseName === '' || listJSectionNumber === [])? true : false }
+                    >Submit</Button>
+                    {isAdding && <>
+                    <div style={{ display: "flex", justifyContent: "center", paddingTop: "3%" }}>
+                        <Typography variant="h3" color="#021630" display="inline">
+            กำลังเพิ่มคำตัดสิน &nbsp;
+                        </Typography>
+                        <CircularProgress color="secondary" />
+                    </div>
+                </>}
                 </Card>
                 
             </Container>
